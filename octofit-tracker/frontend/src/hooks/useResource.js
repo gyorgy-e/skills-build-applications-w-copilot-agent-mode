@@ -10,6 +10,7 @@ export function useResource(url) {
     let active = true;
 
     setLoading(true);
+    setError(null);
     fetchJson(url)
       .then((data) => {
         if (active) setItems(data);
