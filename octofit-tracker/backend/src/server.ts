@@ -8,7 +8,7 @@ import { Activity, LeaderboardEntry, Team, User, Workout } from './models';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = Number.parseInt(process.env.PORT ?? '', 10) || 8000;
 
 const codespaceName = process.env.CODESPACE_NAME;
 const baseUrl = codespaceName
