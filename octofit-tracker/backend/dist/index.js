@@ -12,6 +12,10 @@ const models_1 = require("./models");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8000;
+const codespaceName = process.env.CODESPACE_NAME;
+const baseUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev`
+    : 'http://localhost:8000';
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.get('/api', (_req, res) => {
@@ -31,6 +35,7 @@ app.use((error, _req, res, _next) => {
 });
 app.listen(PORT, () => {
     console.log(`Octofit Tracker API listening on port ${PORT}`);
+    console.log(`API base URL: ${baseUrl}`);
     void (0, database_1.connectDatabase)();
 });
 exports.default = app;

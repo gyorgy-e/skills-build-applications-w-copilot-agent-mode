@@ -10,6 +10,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+const codespaceName = process.env.CODESPACE_NAME;
+const baseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : 'http://localhost:8000';
+
 app.use(cors());
 app.use(express.json());
 
@@ -33,6 +38,7 @@ app.use((error: unknown, _req: express.Request, res: express.Response, _next: ex
 
 app.listen(PORT, () => {
   console.log(`Octofit Tracker API listening on port ${PORT}`);
+  console.log(`API base URL: ${baseUrl}`);
   void connectDatabase();
 });
 
