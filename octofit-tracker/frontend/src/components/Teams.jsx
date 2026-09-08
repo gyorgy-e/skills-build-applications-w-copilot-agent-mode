@@ -1,7 +1,12 @@
 import { useResource } from '../hooks/useResource';
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+const TEAMS_API_URL = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
+  : 'http://localhost:8000/api/teams/';
+
 function Teams() {
-  const { items: teams, error, loading } = useResource('teams');
+  const { items: teams, error, loading } = useResource(TEAMS_API_URL);
 
   if (loading) return <p>Loading teams...</p>;
   if (error) return <p className="text-danger">Error loading teams: {error}</p>;

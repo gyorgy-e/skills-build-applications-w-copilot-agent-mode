@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { fetchResource } from '../api';
+import { fetchJson } from '../api';
 
-export function useResource(resource) {
+export function useResource(url) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,7 @@ export function useResource(resource) {
     let active = true;
 
     setLoading(true);
-    fetchResource(resource)
+    fetchJson(url)
       .then((data) => {
         if (active) setItems(data);
       })
@@ -24,7 +24,7 @@ export function useResource(resource) {
     return () => {
       active = false;
     };
-  }, [resource]);
+  }, [url]);
 
   return { items, error, loading };
 }

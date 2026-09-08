@@ -1,7 +1,12 @@
 import { useResource } from '../hooks/useResource';
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+const USERS_API_URL = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/users/`
+  : 'http://localhost:8000/api/users/';
+
 function Users() {
-  const { items: users, error, loading } = useResource('users');
+  const { items: users, error, loading } = useResource(USERS_API_URL);
 
   if (loading) return <p>Loading users...</p>;
   if (error) return <p className="text-danger">Error loading users: {error}</p>;
